@@ -54,6 +54,49 @@ def read():
     #   ###                     fmt: 56 3b nn nn 00 00 - Bed temp to n degress
     #   ###                     eg: send('\x56\x39\xe1\x00\x00\x00') # extruder temp 240 degrees 
 
+    # guesses
+
+    # 56 94 e7 03 00 00 - print last model?
+    # 56 8e ff ff ff ff - stop print?
+
+
+    # 52 00 - big answer
+    # 76 2a 2a
+    # 76 2b 2b - maybe ask tmp nozzle - returned c1 00 00 00 06 (193)
+    # 76 36 36 - maybe ask tmp tray   - returned 67 00 00 00 06 (103)
+    # 76 3e 3e
+    # 23 0c 20
+    # 23 0f 1c
+    # 23 a1 10
+    # 23 10 28
+    # 23 0b 30
+    # 23 0e 23
+    # (then issues print last model)
+
+    # movement (used in calibration)
+
+    # 4a 00 00 00 48 42 00 00 02 c3                   J...HB....  -- move X
+    # 4a 01 00 00 48 42 00 00 20 41                   J...HB.. A  -- move Y
+    #
+    # position    4a 00 .....                                                    4a 01 .....
+    #    1                left +-- 02 c3                   J...HB....               top   +--  20 41                   J...HB.. A
+    #    2                     |   02 c3                   J...HB....                     |    8c 42  --+  center      J...HB...B
+    #    3                     +-- 02 c3                   J...HB....          bottom ----|--  02 43    |              J...HB...C
+    #    4                mid  +-- 8c c2                   J...HB....                     +--  20 41    |              J...HB.. A
+    #    5                     |   8c c2                   J...HB....                     |    8c 42  --+              J...HB...B
+    #    6                     +-- 8c c2                   J...HB....                     |    02 43    |              J...HB...C
+    #    7              right  +-- 20 c1                   J...HB.. .                     +--  20 41    |              J...HB.. A
+    #    8                     |   20 c1                   J...HB.. .                          8c 42  --+              J...HB...B
+    #    9                     +-- 20 c1                   J...HB.. .                          02 43                   J...HB...C
+
+    # big big guesses
+
+    # up and down
+    # 13 000: 6a 02 00 00 20 41 00 00 80 3f                   j... A...?
+    # 11 000: 6a 02 00 00 20 41 00 00 80 bf                   j... A....
+    #  4 000: 6a 02 00 00 20 41 cd cc cc 3d                   j... A...=
+    # 15 000: 6a 02 00 00 20 41 cd cc cc bd                   j... A....
+
 
 def preheat():
     send('\x56\x16\x08\x07\x00\x00')
