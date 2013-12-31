@@ -101,7 +101,7 @@ def read():
 def stop(): # doesn't work
     send('\x56\x8e\xff\xff\xff\xff') #  - stop print?
 
-def reprint(): # d oesn't work
+def reprint(): # doesn't work
     # 56 94 e7 03 00 00 - print last model?
     send('\x56\x94\xe7\x03\x00\x00')
 
@@ -196,8 +196,8 @@ if __name__ == '__main__':
         preheat();
     if (args.stop):
         stop();
-    if (args.reprint):
-        reprint();
+    # if (args.reprint):
+    #    reprint();
     if (args.init):
         init();
     if (args.misc):
